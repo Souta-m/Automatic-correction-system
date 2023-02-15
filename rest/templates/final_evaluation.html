@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}問題集{% endblock title %}
+
+{% block content %}
+{% load boost %}
+
+
+<form action="{% url 'finish' %}" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off" name="eval">
+    {% csrf_token %}
+    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">全体を通して添削は適切でしたか？</label>
+            {% for field in form1 %}
+            {{ field }}
+            {% endfor %}
+    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">自学習時にこのシステムは役に立ちますか？</label>
+            {% for field in form2 %}
+            {{ field }}
+            {% endfor %}
+<div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">その他感想があれば何か記入したください。</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" maxlength="500" placeholder="500文字以内(任意入力)" name="free_text"></textarea>
+</div>
+<button type="submit" class="btn btn-primary my-1" name='eval'>提出</button>
+  </form>
+
+{% endblock %}

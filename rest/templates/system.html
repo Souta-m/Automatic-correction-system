@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}和文英訳添削テスト{% endblock title %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card" style="width: 60rem;">
+      <div class="card-header">意味添削システム</div>
+      <div class="card-body">
+        <form action="{% url 'forecast' %}" method="POST" enctype="multipart/form-data"　autocomplete="off">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="model" class="col-sm-1 col-form-label"><nobr>出題文</nobr></label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control sbc_field" name="jtext" placeholder="出題文(日本語)を入力してください。(必須入力)"/>
+            </div>
+            <label for="model" class="col-sm-1 col-form-label"><nobr>英訳文</nobr></label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control sbc_field" name="etext" placeholder="あなたが作成した英訳文(英語)を入力し、提出してください。(必須入力)"/>
+            </div>
+            <label for="model" class="col-sm-1 col-form-label"><nobr>正解文</nobr></label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control sbc_field" name="cor_text" placeholder="用意可能なら、正解文(英語)を入力してください。(任意入力)"/>
+            </div>
+            <br>
+            <div class="button_wrapper">
+            <button type="submit" class="btn btn-primary btn-lg" name='action' align="center" value="save">提出</button>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% if error_message is not None %}
+<font size=5.0 color="red">{{error_message}}!</font>
+{% endif %}
+
+{% if error_message1 is not None %}
+<font size=5.0 color="red">{{error_message1}}!</font>
+{% endif %}
+{% endblock %}

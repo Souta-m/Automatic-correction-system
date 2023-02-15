@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}和文英訳添削テスト{% endblock title %}
+
+{% block content %}
+{% load boost %}
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card" style="width: 60rem;">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="card">
+            <div>
+              <br>
+             <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+            <p> <font size="4.5">&emsp; 出題文： {{ jtext }}</font></p>
+            <p><font size="4.5">&emsp; あなたの解答：{{ etext}}</font></p>
+          </li>
+           <li class="list-group-item">
+            <p><font size="4.0">&emsp; 結果：{{message}}</font></p><br>
+            </li>
+            {% if message == "誤りあり" %}
+                  <p>&emsp;<font size="5.0">誤り単語</font></p>
+                  {% for jap,leaner,answer in result %}
+                  {% if leaner == "" %}
+                  <p>&emsp; <font size="4.5">&#9733; {{ jap|linebreaksbr }}</font></p>
+                  <p>&emsp;&emsp; 誤り箇所:単語不足です<br></p>
+                  <p class="lowercase">&emsp;&emsp; 正解:{{ answer|linebreaksbr  }}</p>
+                  {% else %}
+                  <p>&emsp; <font size="4.5">&#9733; {{ jap|linebreaksbr }}</font></p>
+                  <p class="lowercase">&emsp;&emsp; 誤り箇所:{{ leaner|linebreaksbr  }}</p>
+                  <p class="lowercase">&emsp;&emsp; 正解:{{ answer|linebreaksbr  }}</p>
+                  {% endif %}
+                  {% endfor %}
+            {% endif %}
+            <p><font size="3.5">機械翻訳文：{{result_estring}}</font></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>
+<form action="{% url 'evaluations' %}" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off" name="eval">
+    {% csrf_token %}
+    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">添削はどうでしたか？</label>
+            {% for field in form %}
+            {{ field }}
+            {% endfor %}
+    <button type="submit" class="btn btn-primary my-1" name='eval'>提出</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}和文英訳添削テスト{% endblock title %}
+
+{% block content %}
+{% load boost %}
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card" style="width: 60rem;">
+      <div class="card-header">添削システム</div>
+      <div class="card-body">
+        <form action="{% url 'forecast' %}" method="POST" enctype="multipart/form-data"　autocomplete="off">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="model" class="col-sm-1 col-form-label"><nobr>出題文</nobr></label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control sbc_field" name="jtext" placeholder="出題文または解答を入力してください。"/>
+            </div>
+            <label for="model" class="col-sm-1 col-form-label"><nobr>英訳文</nobr></label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control sbc_field" name="etext" placeholder="あなたが作成した英訳文(英語)を入力し、提出してください。(必須入力)"/>
+            </div>
+            <label for="model" class="col-sm-1 col-form-label"><nobr>正解文</nobr></label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control sbc_field" name="cor_text" placeholder="用意可能なら、正解文(英語)を入力してください。(任意入力)"/>
+            </div>
+            <br>
+            <div class="button_wrapper">
+            <button type="submit" class="btn btn-outline-primary" name='action' value="save">提出</button>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card" style="width: 60rem;">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="card">
+            <div>
+              <br>
+             <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+            <p> <font size="4.5">&emsp; 出題文： {{ jtext }}</font></p>
+            <p><font size="4.5">&emsp; あなたの解答：{{ etext}}</font></p>
+          </li>
+           <li class="list-group-item">
+            <p><font size="4.0">&emsp; 結果：{{message}}</font></p><br>
+            </li>
+            {% if message == "誤りあり" %}
+                  <p>&emsp;<font size="5.0">誤り単語</font></p>
+                  {% for jap,leaner,answer in result %}
+                  {% if leaner == "" %}
+                  <p>&emsp; <font size="4.5">&#9733; {{ jap|linebreaksbr }}</font></p>
+                  <p>&emsp;&emsp; 誤り箇所:単語不足です<br></p>
+                  <p class="lowercase">&emsp;&emsp; 正解:{{ answer|linebreaksbr  }}</p>
+                  {% else %}
+                  <p>&emsp; <font size="4.5">&#9733; {{ jap|linebreaksbr }}</font></p>
+                  <p class="lowercase">&emsp;&emsp; 誤り箇所:{{ leaner|linebreaksbr  }}</p>
+                  <p class="lowercase">&emsp;&emsp; 正解:{{ answer|linebreaksbr  }}</p>
+                  {% endif %}
+                  {% endfor %}
+            {% endif %}
+            <p><font size="3.5">機械翻訳文：{{result_estring}}</font></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}

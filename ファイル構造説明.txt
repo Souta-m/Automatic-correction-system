@@ -1,0 +1,354 @@
+松井が提案システムを動かしていた時のファイル構造について記載しています。
+ファイルサイズが大きいものは別場所に置いておくので、ダウンロードしてください。
+/home/matsui/DjangoPro/Master　#Webアプリでの和文英訳問題自動添削システムのファイル構造
+├── CECtest  #Djangoでの設定等が記載されているフォルダ
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-36.pyc
+│   │   ├── __init__.cpython-37.pyc
+│   │   ├── __init__.cpython-39.pyc
+│   │   ├── settings.cpython-36.pyc
+│   │   ├── settings.cpython-37.pyc
+│   │   ├── settings.cpython-39.pyc
+│   │   ├── urls.cpython-37.pyc
+│   │   └── wsgi.cpython-37.pyc
+│   ├── asgi.py
+│   ├── settings.py　#公開・非公開や画像パスなどを設定したい時に使用
+│   ├── urls.py　#基のURLの編集
+│   └── wsgi.py
+├── db.sqlite3　#sqlデータを格納する場所(松井は使用していない)
+├── final_eijiro_weblio.txt  #テキスト上の英和辞典格(別場所からダウンロード)
+├── final_jyukugo.txt　　　#テキスト上の熟語辞典(別場所からダウンロード)
+├── manage.py　　　　#Djangoにおけるmainファイル
+├── mecab-ipadic-neologd　#形態素解析器mecab(別場所からダウンロード)
+│   ├── char.bin
+│   ├── dicrc
+│   ├── left-id.def
+│   ├── matrix.bin
+│   ├── pos-id.def
+│   ├── rewrite.def
+│   ├── right-id.def
+│   ├── sys.dic
+│   └── unk.dic
+├── requirements.txt #環境の情報が保存
+├── rest   #研究システムのフォルダ
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-36.pyc
+│   │   ├── __init__.cpython-37.pyc
+│   │   ├── __init__.cpython-39.pyc
+│   │   ├── admin.cpython-36.pyc
+│   │   ├── admin.cpython-37.pyc
+│   │   ├── apps.cpython-36.pyc
+│   │   ├── apps.cpython-37.pyc
+│   │   ├── apps.cpython-39.pyc
+│   │   ├── bert_nli.cpython-37.pyc
+│   │   ├── forms.cpython-37.pyc
+│   │   ├── models.cpython-36.pyc
+│   │   ├── models.cpython-37.pyc
+│   │   ├── pos.cpython-37.pyc
+│   │   ├── urls.cpython-37.pyc
+│   │   └── views.cpython-37.pyc
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py　#アンケートフォーム等を作るときは使用
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_delete_text.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── 0001_initial.cpython-37.pyc
+│   │       ├── 0002_delete_text.cpython-37.pyc
+│   │       └── __init__.cpython-37.pyc
+│   ├── models.py
+│   ├── modules #研究システムの中身
+│   │   ├── __pycache__
+│   │   │   ├── bert_nli.cpython-37.pyc
+│   │   │   ├── input_example.cpython-37.pyc
+│   │   │   ├── logging_handler.cpython-37.pyc
+│   │   │   ├── nli_data_reader.cpython-37.pyc
+│   │   │   ├── pos.cpython-37.pyc
+│   │   │   ├── tensaku.cpython-37.pyc
+│   │   │   └── utils.cpython-37.pyc
+│   │   ├── awesome_align　#誤り訂正(単語アライメント部分)
+│   │   │   ├── LICENSE
+│   │   │   ├── README.md
+│   │   │   ├── __pycache__
+│   │   │   │   ├── component.cpython-37.pyc
+│   │   │   │   ├── correct_align.cpython-37.pyc
+│   │   │   │   ├── eijiro.cpython-37.pyc
+│   │   │   │   └── pos.cpython-37.pyc
+│   │   │   ├── align.py
+│   │   │   ├── awesome_align
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── __pycache__
+│   │   │   │   │   ├── __init__.cpython-37.pyc
+│   │   │   │   │   ├── activations.cpython-37.pyc
+│   │   │   │   │   ├── configuration_bert.cpython-37.pyc
+│   │   │   │   │   ├── configuration_utils.cpython-37.pyc
+│   │   │   │   │   ├── file_utils.cpython-37.pyc
+│   │   │   │   │   ├── modeling.cpython-37.pyc
+│   │   │   │   │   ├── modeling_utils.cpython-37.pyc
+│   │   │   │   │   ├── sparsemax.cpython-37.pyc
+│   │   │   │   │   ├── tokenization_bert.cpython-37.pyc
+│   │   │   │   │   └── tokenization_utils.cpython-37.pyc
+│   │   │   │   ├── activations.py
+│   │   │   │   ├── configuration_bert.py
+│   │   │   │   ├── configuration_utils.py
+│   │   │   │   ├── file_utils.py
+│   │   │   │   ├── modeling.py
+│   │   │   │   ├── modeling_utils.py
+│   │   │   │   ├── run_align.py
+│   │   │   │   ├── run_train.py
+│   │   │   │   ├── sparsemax.py
+│   │   │   │   ├── tokenization_bert.py
+│   │   │   │   ├── tokenization_utils.py
+│   │   │   │   └── train_utils.py
+│   │   │   ├── build
+│   │   │   │   ├── bdist.linux-x86_64
+│   │   │   │   └── lib
+│   │   │   │       └── awesome_align
+│   │   │   │           ├── __init__.py
+│   │   │   │           ├── activations.py
+│   │   │   │           ├── configuration_bert.py
+│   │   │   │           ├── configuration_utils.py
+│   │   │   │           ├── file_utils.py
+│   │   │   │           ├── modeling.py
+│   │   │   │           ├── modeling_utils.py
+│   │   │   │           ├── run_align.py
+│   │   │   │           ├── run_train.py
+│   │   │   │           ├── sparsemax.py
+│   │   │   │           ├── tokenization_bert.py
+│   │   │   │           ├── tokenization_utils.py
+│   │   │   │           └── train_utils.py
+│   │   │   ├── component.py
+│   │   │   ├── correct_align.py　#ここでアライメントを取得し差分を取っている
+│   │   │   ├── eijiro.py　　#英和辞典での対応箇所
+│   │   │   ├── mecab_text.py　#mecabの実験用(システムでは利用しない)
+│   │   │   ├── output　#単語アライメントモデルが格納(別場所からダウンロード)
+│   │   │   │   └── mecab+1
+│   │   │   │       ├── config.json
+│   │   │   │       ├── eval_results.txt
+│   │   │   │       ├── pytorch_model.bin
+│   │   │   │       ├── special_tokens_map.json
+│   │   │   │       ├── tokenizer_config.json
+│   │   │   │       ├── training_args.bin
+│   │   │   │       └── vocab.txt
+│   │   │   ├── pos.py　#追加機能等を格納したファイル
+│   │   │   ├── run_train.py　#アライメントのテスト用(システムでは利用しない)
+│   │   │   ├── test.py　　#(システムでは利用しない)
+│   │   │   ├── tools
+│   │   │   │   ├── aer.py
+│   │   │   │   └── combine.py
+│   │   │   └── translate.py  #翻訳用プログラム
+│   │   ├── bert_nli.py　　#誤り検出(自然言語推論)
+│   │   ├── nli_model_acc0.884513884723805.state_dict　#自然言語推論モデル(別場所からダウンロード)
+│   │   ├── tensaku.py　　#誤り検出と誤り訂正をモジュール化
+│   │   └── utils #自然言語推論のためのフォルダ
+│   │       ├── __pycache__
+│   │       │   ├── calc.cpython-37.pyc
+│   │       │   ├── create.cpython-37.pyc
+│   │       │   ├── ginger.cpython-37.pyc
+│   │       │   ├── rule.cpython-37.pyc
+│   │       │   └── utils.cpython-37.pyc
+│   │       ├── calc.py
+│   │       ├── create.py
+│   │       ├── ginger.py
+│   │       ├── input_example.py
+│   │       ├── logging_handler.py
+│   │       ├── nli_data_reader.py
+│   │       ├── rule.py
+│   │       └── utils.py
+│   ├── templates　#webアプリのhtml
+│   │   ├── base.html #基にするhtml
+│   │   ├── base_top.html #ログイン画面で基にするhtml
+│   │   ├── evaluation.html #添削完了後に評価してもらうページ
+│   │   ├── experiment.html　#評価実験用自動添削のページ
+│   │   ├── final_evaluation.html　#評価実験の最終評価のページ
+│   │   ├── finish.html　#評価実験終了後に遷移するページ
+│   │   ├── login.html　#ログイン機能のページ
+│   │   ├── output.html　#添削完了後、遷移するページ
+│   │   ├── problem.html #問題を記述しているページ
+│   │   ├── system.html　#自動添削単体での利用の時のページ
+│   │   ├── top.html　#トップ画面のページ
+│   │   └── usage.html　#説明が書かれているページ
+│   ├── tests.py
+│   ├── urls.py #ページのURLを定義
+│   └── views.py #ページの機能を追加するモジュール
+├── static　#cssやjsを格納
+│   ├── admin　#django側で勝手に提供されるフォルダ
+│   │   ├── css　
+│   │   │   ├── autocomplete.css
+│   │   │   ├── base.css
+│   │   │   ├── changelists.css
+│   │   │   ├── dashboard.css
+│   │   │   ├── fonts.css
+│   │   │   ├── forms.css
+│   │   │   ├── login.css
+│   │   │   ├── nav_sidebar.css
+│   │   │   ├── responsive.css
+│   │   │   ├── responsive_rtl.css
+│   │   │   ├── rtl.css
+│   │   │   ├── vendor
+│   │   │   │   └── select2
+│   │   │   │       ├── LICENSE-SELECT2.md
+│   │   │   │       ├── select2.css
+│   │   │   │       └── select2.min.css
+│   │   │   └── widgets.css
+│   │   ├── fonts
+│   │   │   ├── LICENSE.txt
+│   │   │   ├── README.txt
+│   │   │   ├── Roboto-Bold-webfont.woff
+│   │   │   ├── Roboto-Light-webfont.woff
+│   │   │   └── Roboto-Regular-webfont.woff
+│   │   ├── img
+│   │   │   ├── LICENSE
+│   │   │   ├── README.txt
+│   │   │   ├── calendar-icons.svg
+│   │   │   ├── gis
+│   │   │   │   ├── move_vertex_off.svg
+│   │   │   │   └── move_vertex_on.svg
+│   │   │   ├── icon-addlink.svg
+│   │   │   ├── icon-alert.svg
+│   │   │   ├── icon-calendar.svg
+│   │   │   ├── icon-changelink.svg
+│   │   │   ├── icon-clock.svg
+│   │   │   ├── icon-deletelink.svg
+│   │   │   ├── icon-no.svg
+│   │   │   ├── icon-unknown-alt.svg
+│   │   │   ├── icon-unknown.svg
+│   │   │   ├── icon-viewlink.svg
+│   │   │   ├── icon-yes.svg
+│   │   │   ├── inline-delete.svg
+│   │   │   ├── search.svg
+│   │   │   ├── selector-icons.svg
+│   │   │   ├── sorting-icons.svg
+│   │   │   ├── tooltag-add.svg
+│   │   │   └── tooltag-arrowright.svg
+│   │   └── js
+│   │       ├── SelectBox.js
+│   │       ├── SelectFilter2.js
+│   │       ├── actions.js
+│   │       ├── actions.min.js
+│   │       ├── admin
+│   │       │   ├── DateTimeShortcuts.js
+│   │       │   └── RelatedObjectLookups.js
+│   │       ├── autocomplete.js
+│   │       ├── calendar.js
+│   │       ├── cancel.js
+│   │       ├── change_form.js
+│   │       ├── collapse.js
+│   │       ├── collapse.min.js
+│   │       ├── core.js
+│   │       ├── inlines.js
+│   │       ├── inlines.min.js
+│   │       ├── jquery.init.js
+│   │       ├── nav_sidebar.js
+│   │       ├── popup_response.js
+│   │       ├── prepopulate.js
+│   │       ├── prepopulate.min.js
+│   │       ├── prepopulate_init.js
+│   │       ├── urlify.js
+│   │       └── vendor
+│   │           ├── jquery
+│   │           │   ├── LICENSE.txt
+│   │           │   ├── jquery.js
+│   │           │   └── jquery.min.js
+│   │           ├── select2
+│   │           │   ├── LICENSE.md
+│   │           │   ├── i18n
+│   │           │   │   ├── af.js
+│   │           │   │   ├── ar.js
+│   │           │   │   ├── az.js
+│   │           │   │   ├── bg.js
+│   │           │   │   ├── bn.js
+│   │           │   │   ├── bs.js
+│   │           │   │   ├── ca.js
+│   │           │   │   ├── cs.js
+│   │           │   │   ├── da.js
+│   │           │   │   ├── de.js
+│   │           │   │   ├── dsb.js
+│   │           │   │   ├── el.js
+│   │           │   │   ├── en.js
+│   │           │   │   ├── es.js
+│   │           │   │   ├── et.js
+│   │           │   │   ├── eu.js
+│   │           │   │   ├── fa.js
+│   │           │   │   ├── fi.js
+│   │           │   │   ├── fr.js
+│   │           │   │   ├── gl.js
+│   │           │   │   ├── he.js
+│   │           │   │   ├── hi.js
+│   │           │   │   ├── hr.js
+│   │           │   │   ├── hsb.js
+│   │           │   │   ├── hu.js
+│   │           │   │   ├── hy.js
+│   │           │   │   ├── id.js
+│   │           │   │   ├── is.js
+│   │           │   │   ├── it.js
+│   │           │   │   ├── ja.js
+│   │           │   │   ├── ka.js
+│   │           │   │   ├── km.js
+│   │           │   │   ├── ko.js
+│   │           │   │   ├── lt.js
+│   │           │   │   ├── lv.js
+│   │           │   │   ├── mk.js
+│   │           │   │   ├── ms.js
+│   │           │   │   ├── nb.js
+│   │           │   │   ├── ne.js
+│   │           │   │   ├── nl.js
+│   │           │   │   ├── pl.js
+│   │           │   │   ├── ps.js
+│   │           │   │   ├── pt-BR.js
+│   │           │   │   ├── pt.js
+│   │           │   │   ├── ro.js
+│   │           │   │   ├── ru.js
+│   │           │   │   ├── sk.js
+│   │           │   │   ├── sl.js
+│   │           │   │   ├── sq.js
+│   │           │   │   ├── sr-Cyrl.js
+│   │           │   │   ├── sr.js
+│   │           │   │   ├── sv.js
+│   │           │   │   ├── th.js
+│   │           │   │   ├── tk.js
+│   │           │   │   ├── tr.js
+│   │           │   │   ├── uk.js
+│   │           │   │   ├── vi.js
+│   │           │   │   ├── zh-CN.js
+│   │           │   │   └── zh-TW.js
+│   │           │   ├── select2.full.js
+│   │           │   └── select2.full.min.js
+│   │           └── xregexp
+│   │               ├── LICENSE.txt
+│   │               ├── xregexp.js
+│   │               └── xregexp.min.js
+│   ├── boot　#bootstrap(フロントエンド)のためのフォルダ
+│   │   ├── css
+│   │   │   ├── addition.css
+│   │   │   ├── bootstrap-grid.css
+│   │   │   ├── bootstrap-grid.css.map
+│   │   │   ├── bootstrap-grid.min.css
+│   │   │   ├── bootstrap-grid.min.css.map
+│   │   │   ├── bootstrap-reboot.css
+│   │   │   ├── bootstrap-reboot.css.map
+│   │   │   ├── bootstrap-reboot.min.css
+│   │   │   ├── bootstrap-reboot.min.css.map
+│   │   │   ├── bootstrap.css
+│   │   │   ├── bootstrap.css.map
+│   │   │   ├── bootstrap.min.css
+│   │   │   ├── bootstrap.min.css.map
+│   │   │   └── loding.css
+│   │   └── js
+│   │       ├── bootstrap.bundle.js
+│   │       ├── bootstrap.bundle.js.map
+│   │       ├── bootstrap.bundle.min.js
+│   │       ├── bootstrap.bundle.min.js.map
+│   │       ├── bootstrap.js
+│   │       ├── bootstrap.js.map
+│   │       ├── bootstrap.min.js
+│   │       ├── bootstrap.min.js.map
+│   │       └── loading.js
+│   └── script
+│       └── cookie.js
+└── 実行.txt　#サーバー立ち上げ方のメモ
+

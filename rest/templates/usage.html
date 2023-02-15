@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}説明{% endblock title %}
+
+{% block content %}
+{% load boost %}
+<head><title>説明</title></head>
+
+<h1 class="display-4">・システムについての説明</h1>
+<p><font size="5.0">本システムは、綱川研究室が研究している和文英訳問題自動添削システムです。<br>
+現段階では、「文法的な誤り」を添削する機能はありません。<br>
+「意味内容の誤り」を添削することに特化しております。</font></p>
+
+
+<h1 class="display-4">・使用方法</h1>
+<h2 class="display-5">1.メニューバー</h2>
+<p><font size="4.5">下の図がメニューバーについての説明です。<br>
+    メニューバーが表示されないようでしたら、ブラウザを最大化してください。
+
+</font></p>
+<br>
+<div align="left">
+<img src="/media/image/pic1.png">
+</div>
+
+<h2 class="display-4">2.添削システム</h2>
+<br>
+
+<h3 class="display-5">2-1.入力部分</h3>
+<p><font size="4.5">下の図が入力についての説明です。</font></p>
+<br>
+<div align="left">
+<img src="/media/image/pic2.png">
+</div>
+<br>
+<p><font size="4.5">下の図のように入力して、提出ボタンを押してください。</font></p>
+<div align="left">
+<img src="/media/image/pic3.png">
+</div>
+<br>
+
+<h3 class="display-5">2-2.結果表示部分</h3>
+<p><font size="4.5">下の図が添削結果についての説明です。</font></p>
+<br>
+<div align="left">
+<img src="/media/image/pic4.png">
+</div>
+
+<h1 class="display-4">・評価について</h1>
+<p><font size="4.5">添削が終わるもしくは実験が終わりましたら、以下のように評価してください。</font></p>
+<div align="left">
+    <img src="/media/image/pic5.png">
+</div>
+{% endblock %}

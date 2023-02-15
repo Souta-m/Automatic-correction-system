@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}問題集{% endblock title %}
+
+{% block content %}
+{% load boost %}
+
+<body>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">問題番号</th>
+        <th scope="col">出題文</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-toggle="collapse" data-target="#collapse-1">
+        <th scope="row">1</th>
+        <td>学習者には明確な目標を持つことが大切だ。</td>
+        <div class="collapse" id="collapse-1">
+          <p>問題1の正解文</p>
+          <p>
+            It is important for learners to have clear goals.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-2">
+        <th scope="row">2</th>
+        <td>睡眠が記憶を向上させると言われている。</td>
+        <div class="collapse" id="collapse-2">
+          <p>問題2の正解文</p>
+          <p>
+            It is said sleep improves your memory.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-3">
+        <th scope="row">3</th>
+        <td>その恐ろしげな音を聞いて私はあるホラー映画を思い出した。</td>
+        <div class="collapse" id="collapse-3">
+          <p>問題3の正解文</p>
+          <p>
+            The scary sound reminds me of a horror movie.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-4">
+        <th scope="row">4</th>
+        <td>コーチは私たちを試合に勝つことに集中させた。</td>
+        <div class="collapse" id="collapse-4">
+          <p>問題4の正解文</p>
+          <p>
+            Our coach kept us concentrating on winning the game.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-5">
+        <th scope="row">5</th>
+        <td>私たちは彼が決勝ゴールを決めるのを見た。</td>
+        <div class="collapse" id="collapse-5">
+          <p>問題5の正解文</p>
+          <p>
+            We saw him score the winning goal.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-6">
+        <th scope="row">6</th>
+        <td>彼女はバスケの試合中に足を痛めた。</td>
+        <div class="collapse" id="collapse-6">
+          <p>問題6の正解文</p>
+          <p>
+            She had her leg injured during the basketball game. 
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-7">
+        <th scope="row">7</th>
+        <td>以前私はやんちゃな生徒でしたが、もうそんなことはありません。</td>
+        <div class="collapse" id="collapse-7">
+          <p>問題7の正解文</p>
+          <p>
+            I used to be a naughty student, but not anymore.
+          </p>
+        </div>
+      </tr>
+      <tr>
+        <th scope="row">8</th>
+        <td>これは今日を諦めなかった故の物語。</td>
+        <div class="collapse" id="collapse-7">
+          <p>問題8の正解文</p>
+          <p>
+            This is a story of why I didn't give up today.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-9">
+        <th scope="row">9</th>
+        <td>自分の町にこんな立派な図書館があってうれしい。</td>
+        <div class="collapse" id="collapse-9">
+          <p>問題9の正解文</p>
+          <p>
+            I am glad to have such a great library in my town.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-10">
+        <th scope="row">10</th>
+        <td>批判的な読み方を学ぶべきである。</td>
+        <div class="collapse" id="collapse-10">
+          <p>問題10の正解文</p>
+          <p>
+            You should learn how to read critically.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-11">
+        <th scope="row">11</th>
+        <td>去年のクリスマス、彼にマフラーをプレゼントしたのを覚えています。</td>
+        <div class="collapse" id="collapse-11">
+          <p>問題11の正解文</p>
+          <p>
+            I remember giving him a scarf for Christmas last year.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-12">
+        <th scope="row">12</th>
+        <td>お正月に親戚に会えるのを楽しみにしています。</td>
+        <div class="collapse" id="collapse-12">
+          <p>問題12の正解文</p>
+          <p>
+            I am looking forward to seeing my relatives on New Year's Day.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-13">
+        <th scope="row">13</th>
+        <td>数値から分析すると、彼の筋力は平均より20%強い。</td>
+        <div class="collapse" id="collapse-13">
+          <p>問題13の正解文</p>
+          <p>
+            Judging from the figures, his muscles are 20% stronger than average.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-14">
+        <th scope="row">14</th>
+        <td>お腹をへこませて、ゆっくりと息を吐いてください。</td>
+        <div class="collapse" id="collapse-14">
+          <p>問題14の正解文</p>
+          <p>
+            Breathe out slowly with your stomach moving.
+          </p>
+        </div>
+      </tr>
+      <tr data-toggle="collapse" data-target="#collapse-15">
+        <th scope="row">15</th>
+        <td>あらゆる科学に対する彼の強い好奇心が、現在の姿を作った。</td>
+        <div class="collapse" id="collapse-15">
+          <p>問題15の正解文</p>
+          <p>
+            His great curious about all science has made him what he is.
+          </p>
+        </div>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td></td>
+      </tr>
+
+    </tbody>
+  </table>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/home/matsui/DjangoPro/Master/static/boot/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}
