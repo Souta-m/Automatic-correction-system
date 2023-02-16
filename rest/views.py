@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from . import forms
 import time
-YOUR_API_KEY = 'b76272fc-acfd-d168-8005-0e38246ad871:fx'
+YOUR_API_KEY = 'あなたが取得したAPI KEYを入力してください。'
 
 def rest(request):
     return render(request, 'top.html')
