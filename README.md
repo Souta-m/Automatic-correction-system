@@ -43,5 +43,5 @@ gunicorn --bind 127.0.0.1:8000 CECtest.wsgi:application  #本番用サーバ立�
 ・nginx 1.14.0<br>
 *pythonのライブラリはrequiremtns.txtを参照<br>
 # 参考文献
-・[DjangoでのWeb公開について](https://zenn.dev/hathle/books/django-vultr-book)
+・[DjangoでのWeb公開について](https://zenn.dev/hathle/books/django-vultr-book)<br>
 ・[綱川研OB天野さんの研究](https://github.com/yuyaamano23/Hand_over_materials_NLP_LAB)
