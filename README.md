@@ -39,9 +39,9 @@ python manage.py runserver  #開発用サーバを立ち上げ(ローカル環�
 gunicorn --bind 127.0.0.1:8000 CECtest.wsgi:application  #本番用サーバ立ち上げ(グローバル環境)
 ```
 # 環境
-・サーバー　hanamonoサーバー(詳しくは綱川先生にお聞きください)
-・OS　Linux 4.15.0-194-generic(Ubuntu 7.5.0)
-・エディタ　VScode
+・サーバー　hanamonoサーバー(詳しくは綱川先生にお聞きください)<br>
+・OS　Linux 4.15.0-194-generic(Ubuntu 7.5.0)<br>
+・エディタ　VScode<br>
 # バージョン情報
 ・Python 3.7.13<br>
 ・nginx 1.14.0<br>
