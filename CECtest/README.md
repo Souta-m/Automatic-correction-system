@@ -1,1 +1,1 @@
-#CECtestのコード説明
+# CECtestのコード説明
