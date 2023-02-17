@@ -49,4 +49,6 @@ gunicorn --bind 127.0.0.1:8000 CECtest.wsgi:application  #本番用サーバ立�
 ＊pythonのライブラリのバージョンはrequiremtns.txtを参照してください<br>
 # 参考文献
 ・[DjangoでのWeb公開について](https://zenn.dev/hathle/books/django-vultr-book)<br>
+提案システムをWeb公開する時にファイルに追記する等のいくつか設定が必要です。こちらの文献に詳しく書かれているので、この通りにすれば大丈夫だと思います。<br>
 ・[綱川研OB天野さんの研究](https://github.com/yuyaamano23/Hand_over_materials_NLP_LAB)<br>
+私と同期だった天野さんの研究についてです。こちらも参考になると思うので、軽く読んでみるのをお勧めします。<br>
