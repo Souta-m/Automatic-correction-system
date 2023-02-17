@@ -37,5 +37,9 @@ Djangoでの実行は基本このmanage.pyで行います。
 python manage.py runserver  #開発用サーバを立ち上げ
 ```
 
-## 参考文献
+# バージョン情報
+・Python 3.7.13<br>
+・nginx 1.14.0<br>
+*pythonのライブラリはrequiremtns.txtを参照<br>
+# 参考文献
 ・[DjangoでのWeb公開について](https://zenn.dev/hathle/books/django-vultr-book)
