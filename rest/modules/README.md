@@ -9,7 +9,7 @@ BERTによる自然言語推論モデルを動かすためのPythonファイル�
 BERTによる自然言語推論モデルを定義しています。
 ## tensaku.py
 上で説明してきた機能をまとめているPythonファイルです。このPythonファイル内のメソッドをviews.pyで呼び出し、Djangoでの添削アプリを実現しています。
-#参考文献
+# 参考文献
 [Awesome-align](https://github.com/neulab/awesome-align)<br>
 [BERT_NLI](https://github.com/yg211/bert_nli)<br>
 [Sentence-BERT](https://www.ogis-ri.co.jp/otc/hiroba/technical/similar-document-search/part9.html)<br>
