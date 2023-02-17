@@ -25,6 +25,7 @@ Djangoに関しては、ネットでの情報が充実していません。書�
 # コード説明
 提案システムのコードについてです。
 それぞれについて簡潔に説明します。フォルダに関しては、それぞれのフォルダに別のREADMEを用意しています。
+コード汚くてすみません……
 ## ① CECtestフォルダ
 Djangoの設定等を記述しているフォルダです。
 ## ② restフォルダ
@@ -37,11 +38,12 @@ Djangoでの実行は基本このmanage.pyで行います。
 python manage.py runserver  #開発用サーバを立ち上げ(ローカル環境)
 gunicorn --bind 127.0.0.1:8000 CECtest.wsgi:application  #本番用サーバ立ち上げ(グローバル環境)
 ```
-
+#環境
+・サーバー　hanamonoサーバー(詳しくは綱川先生にお聞きください)
 # バージョン情報
 ・Python 3.7.13<br>
 ・nginx 1.14.0<br>
-*pythonのライブラリはrequiremtns.txtを参照<br>
+＊pythonのライブラリのバージョンはrequiremtns.txtを参照してください<br>
 # 参考文献
 ・[DjangoでのWeb公開について](https://zenn.dev/hathle/books/django-vultr-book)<br>
-・[綱川研OB天野さんの研究](https://github.com/yuyaamano23/Hand_over_materials_NLP_LAB)
+・[綱川研OB天野さんの研究](https://github.com/yuyaamano23/Hand_over_materials_NLP_LAB)(br)
