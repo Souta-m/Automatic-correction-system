@@ -21,7 +21,7 @@ python align.py
 python correct_align.py
 ```
 
-## eujiro.py
+## eijiro.py
 英和辞典を呼び出し、検索するためのPythonファイルです。
 ## pos.py
 形態素解析をし、都合の良い形で結果を取得するためのPythonファイルです。また、松井の修士論文内の添削精度向上のための追加機能にあたるものもここで実装しています。
