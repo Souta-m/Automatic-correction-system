@@ -34,7 +34,8 @@ cssファイルや画像ファイルがここに入ります。web公開する�
 ## ③ mange.py
 Djangoでの実行は基本このmanage.pyで行います。
 ```
-python manage.py runserver  #開発用サーバを立ち上げ
+python manage.py runserver  #開発用サーバを立ち上げ(ローカル環境)
+gunicorn --bind 127.0.0.1:8000 CECtest.wsgi:application  #本番用サーバ立ち上げ(グローバル環境)
 ```
 
 # バージョン情報
