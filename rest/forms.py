@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
+#ログイン機能のformを定義
 class LoginForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
@@ -21,7 +22,7 @@ class LoginForm(AuthenticationForm):
 #        required=True,
 #    )
 
-
+#以下、評価実験用のフォームを定義
 class SampleChoiceForm(forms.Form):
 	tensaku_score = (
 		('1', '1:よくない'),

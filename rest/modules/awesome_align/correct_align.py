@@ -43,7 +43,9 @@ import pandas as pd
 from rest.modules.awesome_align import pos
 from rest.modules.awesome_align import component
 
-wakati = MeCab.Tagger("-Owakati -d /home/matsui/DjangoPro/Master/mecab-ipadic-neologd")
+#awesome-alignのalign.pyをベースに作成しています。詳しくは、https://github.com/neulab/awesome-align
+
+wakati = MeCab.Tagger("-Owakati -d /home/matsui/DjangoPro/Master/mecab-ipadic-neologd")#mecab
 
 def set_seed(args):
     if args.seed >= 0:
@@ -94,7 +96,7 @@ class LineByLineTextDataset(IterableDataset):
         worker_id = 0
         if self.input_data!=None:
             df=pd.read_csv(self.input_data)
-            for s,t1,t2 in zip(df["出題文"],df["学習者"],df["翻訳"]): #ここを適宜変更する
+            for s,t1,t2 in zip(df["出題文"],df["学習者"],df["翻訳"]): #ここを適宜変更する。ファイル上の文を複数文添削するときのみ使用
                 new_s=pos.numbers(s) #数字の連結
                 processed = self.process_line(worker_id=worker_id,src=new_s,trg1=" ".join(nltk.word_tokenize(t1)),trg2=" ".join(nltk.word_tokenize(t2)))
                 #processed = self.process_line(worker_id=worker_id,src=wakati.parse(s),trg1=" ".join(nltk.word_tokenize(t1)),trg2=" ".join(nltk.word_tokenize(t2)))
@@ -118,7 +120,7 @@ def word_align(args, model: PreTrainedModel, tokenizer: PreTrainedTokenizer,src,
         ids_tgt2 = pad_sequence(ids_tgt2, batch_first=True, padding_value=tokenizer.pad_token_id)
         return worker_ids, ids_src, ids_tgt1,ids_tgt2, bpe2word_map_src, bpe2word_map_tgt1,bpe2word_map_tgt2, sents_src, sents_tgt1,sents_tgt2
 
-    dataset = LineByLineTextDataset(tokenizer,src=src,trg1=trg1,trg2=trg2,input_data=args.input_file)
+    dataset = LineByLineTextDataset(tokenizer,src=src,trg1=trg1,trg2=trg2,input_data=args.input_file)#以下学習者訳等のデータを数字にしている。
     dataloader = DataLoader(
         dataset, batch_size=args.batch_size, collate_fn=collate, num_workers=args.num_workers
     )
@@ -132,16 +134,16 @@ def word_align(args, model: PreTrainedModel, tokenizer: PreTrainedTokenizer,src,
             print(sents_src)
             print(sents_tgt1)
             print(sents_tgt2)
-            word_aligns_list1 = model.get_aligned_word(ids_src, ids_tgt1, bpe2word_map_src, bpe2word_map_tgt1, args.device, 0, 0, align_layer=args.align_layer, extraction=args.extraction, softmax_threshold=args.softmax_threshold, test=True, output_prob=True)
-            word_aligns_list2 = model.get_aligned_word(ids_src, ids_tgt2, bpe2word_map_src, bpe2word_map_tgt2, args.device, 0, 0, align_layer=args.align_layer, extraction=args.extraction, softmax_threshold=args.softmax_threshold, test=True, output_prob=True)
+            word_aligns_list1 = model.get_aligned_word(ids_src, ids_tgt1, bpe2word_map_src, bpe2word_map_tgt1, args.device, 0, 0, align_layer=args.align_layer, extraction=args.extraction, softmax_threshold=args.softmax_threshold, test=True, output_prob=True)#出題文↔学習者訳のアライメント
+            word_aligns_list2 = model.get_aligned_word(ids_src, ids_tgt2, bpe2word_map_src, bpe2word_map_tgt2, args.device, 0, 0, align_layer=args.align_layer, extraction=args.extraction, softmax_threshold=args.softmax_threshold, test=True, output_prob=True)#出題文↔正解文のアライメント
 
 
             for worker_id, word_aligns1,word_aligns2, sent_src, sent_tgt1,sent_tgt2 in zip(worker_ids, word_aligns_list1,word_aligns_list2, sents_src, sents_tgt1,sents_tgt2):
                 poses,tpas=pos.tpas_extra(" ".join(sent_src)) #品詞取り出し
-                terms=pos.wakati_text(" ".join(sent_src))#指定単語取り出し
-                jap_words=[r[0] for r in poses]
-                jap_poses=[r[1] for r in poses]
-                jap_renketsu=[r[1] for r in tpas]
+                terms=pos.wakati_text(" ".join(sent_src))#指定単語(名詞等)取り出し
+                jap_words=[r[0] for r in poses]#出題文中の単語
+                jap_poses=[r[1] for r in poses]#出題文中単語の品詞
+                jap_renketsu=[r[1] for r in tpas]#
                 answers1=[]
                 answers2=[]
                 align_words1=[]
@@ -149,14 +151,13 @@ def word_align(args, model: PreTrainedModel, tokenizer: PreTrainedTokenizer,src,
                 src_index=0
                 str_tgt2=" ".join(sent_tgt2)
                 for wa,pro in word_aligns1.items():
-                    print(pro.item())
-                    print(sent_src[wa[0]],sent_tgt1[wa[1]],poses[wa[0]][1])
+                    print(pro.item())#アライメント行列の確率。閾値以上でアライメントされたと判定。詳しくはawesome-alignの論文で。
+                    print(sent_src[wa[0]],sent_tgt1[wa[1]],poses[wa[0]][1])#アライメントされた単語と品詞を端末上に表示  
                     if sent_src[wa[0]] in terms:
-                        answers1.append(sent_src[wa[0]])
+                        answers1.append(sent_src[wa[0]])#指定品詞ならば、出題文中の単語をリストに追加
 
                     if align_count>=1:
-                        # print(sent_src[wa[0]])
-                        # print(sent_src[list(word_aligns1.items())[align_count-][0][0]])
+                        #単語アライメントをリストに追加
                         if sent_src[wa[0]]==sent_src[list(word_aligns1.items())[align_count-1][0][0]]:
                             align_words1[src_index][1]+=" "+sent_tgt1[wa[1]]
                         else:
@@ -169,7 +170,7 @@ def word_align(args, model: PreTrainedModel, tokenizer: PreTrainedTokenizer,src,
                 align_count=0
                 src_index=0
                 align_words2=[]
-                print("-------------------")
+                print("-------------------")#以下出題文↔正解文で上と同じ作業を行う
                 for wa,pro in word_aligns2.items():
                     print(pro.item())
                     print(sent_src[wa[0]],sent_tgt2[wa[1]],poses[wa[0]][1])
@@ -189,18 +190,20 @@ def word_align(args, model: PreTrainedModel, tokenizer: PreTrainedTokenizer,src,
                 print(align_words2)
 
                 print(" ".join(sent_src))
-                #print(set(terms)^set(answers))  #順番気にしない
-                result1 = [i for i in terms if i not in answers1] #順番期にする
+                #指定品詞かつアライメントされた出題文を取り出す。
+                #print(set(terms)^set(answers))  #リストの順番気にしない
+                result1 = [i for i in terms if i not in answers1] #リストの順番気にする
                 result2 = [i for i in terms if i not in answers2]
                 print("・学習者訳")
                 print(" ".join(sent_tgt1))
-                print(result1)
+                print(result1)#訂正候補単語
                 print("・正解文or機械翻訳文")
                 print(" ".join(sent_tgt2))
-                print(result2)
+                print(result2)#訂正候補単語
                 concats=component.conc_three(jap_words,align_words2,align_words1,jap_poses)
                 print("訂正単語")
                 final_result1=[]
+                #以下最終的な訂正単語をリストに格納するためのコード
                 for cor in result1: #訂正単語のリストを見る
                     if cor not in result2:
                         print(cor)
@@ -226,7 +229,7 @@ def word_align(args, model: PreTrainedModel, tokenizer: PreTrainedTokenizer,src,
                     if jap_renketsu[index]!="":
                         final_results[i][0]=jap_renketsu[index]
                 print(final_results)
-                final_results=component.idiom_order(sent_tgt1,sent_tgt2,final_results)
+                final_results=component.idiom_order(sent_tgt1,sent_tgt2,final_results)#最終的にtensaku.pyに送られる値。[出題文単語,学習者訳単語,正解文中単語]
                 print("\n")
 
             tqdm_iterator.update(len(ids_src))
@@ -236,56 +239,57 @@ parser = argparse.ArgumentParser()
 
 # Required parameters
 
-argparser.add_argument("--align_layer", type=int, default=8, help="layer for alignment extraction")
+argparser.add_argument("--align_layer", type=int, default=8, help="layer for alignment extraction")#アライメントモデルの層
 argparser.add_argument(
     "--extraction", default='softmax', type=str, help='softmax or entmax15'
-)
+)#最終層の関数
 
 argparser.add_argument(
     "--input_file", default=None, type=str, help='The output probability file.'
-)
+)#単語アライメントモデル単体でのinput_file
 argparser.add_argument(
     "--softmax_threshold", type=float, default=0.001
-)
+)#thresholdの値
 argparser.add_argument(
     "--output_prob_file", default=None, type=str, help='The output probability file.'
-)
+)#単語アライメント単体での確率を出力するファイルの場所
 argparser.add_argument(
     "--output_word_file", default=None, type=str, help='The output word file.'
-)
+)#単語アライメント単体でのアライメントを出力するファイルの場所
 argparser.add_argument(
     "--model_name_or_path",
     #default="/home/matsui/zemi/awesome-align/checkpoint-20000-20221028T035032Z-001/checkpoint-20000",
-    default="/home/matsui/DjangoPro/Master/rest/modules/awesome_align/output/mecab+1",
+    default="単語アライメントモデルを格納しているパス",
     type=str,
     help="The model checkpoint for weights initialization. Leave None if you want to train a model from scratch.",
-)
+)#学習させた単語アライメントモデルの場所
 argparser.add_argument(
     "--config_name",
     default=None,
     type=str,
     help="Optional pretrained config name or path if not the same as model_name_or_path. If both are None, initialize a new config.",
-)
+)#configファイルの場所(通常None)
 argparser.add_argument(
     "--tokenizer_name",
     default=None,
     type=str,
     help="Optional pretrained tokenizer name or path if not the same as model_name_or_path. If both are None, initialize a new tokenizer.",
-)
-argparser.add_argument("--seed", type=int, default=42, help="random seed for initialization")
-argparser.add_argument("--batch_size", default=32, type=int)
+)#tokenizerの場所(通常None)
+argparser.add_argument("--seed", type=int, default=42, help="random seed for initialization")#学習時に用いるseed(基本変えなくてよい)
+argparser.add_argument("--batch_size", default=32, type=int)#バッチサイズ
 argparser.add_argument(
     "--cache_dir",
     default=None,
     type=str,
     help="Optional directory to store the pre-trained models downloaded from s3 (instead of the default one)",
-)
-argparser.add_argument("--no_cuda", action="store_true", help="Avoid using CUDA when available")
-argparser.add_argument("--num_workers", type=int, default=1, help="Number of workers for data loading")
+)#Noneでよい
+argparser.add_argument("--no_cuda", action="store_true", help="Avoid using CUDA when available")#このままでよい
+argparser.add_argument("--num_workers", type=int, default=1, help="Number of workers for data loading")#このままでよい
 args = argparser.parse_args([])
-device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")#gpu使うかどうか
 args.device = device
 
+#main関数。tensaku.pyのteiseiメソッドで呼び出されている。srcは出題文、trg1は学習者訳、trg2は正解文。
 def main(src,trg1,trg2,model,tokenizer):
 
     # Set seed

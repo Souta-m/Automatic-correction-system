@@ -5,7 +5,7 @@ import re
 
 
 
-#以下[日本語、正解、学習者訳]の単語を入れるコード
+#以下[日本語、正解、学習者訳]のような形のリストで単語を入れるメソッド
 def conc_three(jap_words,x1s,x2s,jap_pos):
     concat_words=[]
     x1_count=0
@@ -40,7 +40,7 @@ def conc_three(jap_words,x1s,x2s,jap_pos):
 # for l,c in zip(leaner_words,correct_words):
 #     print(l,c)
 
-#以下訂正単語で連結している単語をひとつのまとまりにするアルゴリズム
+#以下訂正単語で連結している単語をひとつのまとまりにするアルゴリズム(松井のシステムでは用いなかった)
 def jyukugo(teisei,jap_words,jap_poses,jap):
     teisei_count=0
     teisei_index=[]
@@ -76,6 +76,7 @@ def jyukugo(teisei,jap_words,jap_poses,jap):
             i+=1
     return jyuku
 
+#以下最終的にtensaku.pyに送るようにリスト形式しするためのメソッド
 def idiom_order(sents1,sents2,teiseis):
     def comma(tei,idx):
         for i in range(len(idx)-1):

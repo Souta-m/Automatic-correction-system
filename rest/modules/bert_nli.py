@@ -9,7 +9,7 @@ from tqdm import tqdm
 from transformers import *
 from rest.modules.utils import utils
 
-
+#松井はbert-largeを使用。詳しくは、https://github.com/yg211/bert_nli
 class BertNLIModel(nn.Module):
     """Performs prediction, given the input of BERT embeddings.
     """

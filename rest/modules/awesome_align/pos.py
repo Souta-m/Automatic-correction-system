@@ -10,18 +10,16 @@ import time
 import re
 # 取り出したい品詞
 #https://taku910.github.io/mecab/posid.html
-select_conditions = ['動詞', '形容詞', '名詞','副詞']
-exclusion_mwords = ["ん","の","さ","こと","もの","よう","なく","なさい","せ"]
-exclusion_dwords = ["い","て","なっ","れる","し","られ","れ","する","あり","いる","あれ","なり","られる","ある","しまう"]
+select_conditions = ['動詞', '形容詞', '名詞','副詞',"感動詞","接続詞"]#訂正対象にする品詞
+exclusion_mwords = ["ん","の","さ","こと","もの","よう","なく","なさい","せ"]#除外する単語1
+exclusion_dwords = ["い","て","なっ","れる","し","られ","れ","する","あり","いる","あれ","なり","られる","ある","しまう"]#除外する単語2
 exclusion_words = exclusion_mwords+exclusion_dwords
 # 分かち書きオブジェクト
-tagger = MeCab.Tagger("-Owakati -d /home/matsui/DjangoPro/Master/mecab-ipadic-neologd")
-
-# tagger = MeCab.Tagger('-d /usr/lib64/mecab/dic/mecab-ipadic-neologd')
-
+tagger = MeCab.Tagger("mecabのパス")
 # 安定するらしい
 tagger.parse('')
 
+#形態素解析する時に起きる数字が分割される問題に対処するメソッド
 def numbers(text):
     new_ja=[]
     node = tagger.parseToNode(text)
@@ -58,8 +56,9 @@ def numbers(text):
     new_ja=new_ja[:-2]
     return new_ja
 
+#訳を増やすための翻訳メソッド
 def translate(text):
-    YOUR_API_KEY = 'b76272fc-acfd-d168-8005-0e38246ad871:fx'
+    YOUR_API_KEY = 'あなたのAPIKEY'
     # 翻訳したい入力テキスト
     #TEXT='こんにちは。'
     params = {
@@ -72,12 +71,11 @@ def translate(text):
     result = request.json()
     return result["translations"][0]["text"]
 
+#以下漢数字とアラビア数字を対応付ける機能
 tt_ksuji = str.maketrans('一二三四五六七八九〇壱弐参', '1234567890123')
-
 re_suji = re.compile(r'[十拾百千万億兆\d]+')
 re_kunit = re.compile(r'[十拾百千]|\d+')
 re_manshin = re.compile(r'[万億兆]|[^万億兆]+')
-
 TRANSUNIT = {'十': 10,
              '拾': 10,
              '百': 100,
@@ -85,8 +83,6 @@ TRANSUNIT = {'十': 10,
 TRANSMANS = {'万': 10000,
              '億': 100000000,
              '兆': 1000000000000}
-
-
 def kansuji2arabic(kstring: str, sep=False):
     """漢数字をアラビア数字に変換"""
 
@@ -120,6 +116,7 @@ def kansuji2arabic(kstring: str, sep=False):
 
     return transuji
 
+#mecabの形態素解析で単語と品詞をdictで取り出すメソッド
 def wakati_text(text,flag=False):
 
     # 分けてノードごとにする
@@ -143,6 +140,7 @@ def wakati_text(text,flag=False):
 
     return terms
 
+#mecabの形態素解析で単語と品詞をlistで取り出すメソッド
 def pos_extra(text):
 
     node = tagger.parseToNode(text)
@@ -162,6 +160,7 @@ def pos_extra(text):
 
     return dict1
 
+#日本語文と英文中の単語の品詞を揃えるメソッド
 def renketsu(tpas):  #動詞問題を解決する
     new_tpas=[]
     list_term=[r[0] for r in tpas]+[" "]
@@ -183,6 +182,7 @@ def renketsu(tpas):  #動詞問題を解決する
     new_tpas.append([list_term[-1],"",list_ano[-1]])
     return new_tpas
 
+#mecabの形態素解析で単語と品詞と活用形をlistで取り出すメソッド
 def tpas_extra(text):
 
     node = tagger.parseToNode(text)
@@ -203,7 +203,8 @@ def tpas_extra(text):
     # tpas=jyosi(tpas)
     return poses,new_tpas
 
-def kanji_setousi(word,lists): #先頭漢字が一致していたら誤りなし
+#接頭詞をまとめたり、漢数字を対応させるためのメソッド
+def kanji_setousi(word,lists):
     flag=True
     # print("＊間違え単候補")
     # print(word)
@@ -230,7 +231,7 @@ def kanji_setousi(word,lists): #先頭漢字が一致していたら誤りなし
 
 
 
-
+#訂正対象とする単語を抽出するためのメソッド
 def extra_teisei(lists,tgt2):
     
     teisei_words=[]

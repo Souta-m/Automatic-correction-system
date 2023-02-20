@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.urls import path
 from .import views
 
+#それぞれの機能に対応するurlを記述
 urlpatterns = [
     path("", views.TopView.as_view(), name="top"),
     path('forecast/', views.forecast, name='forecast'),

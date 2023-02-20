@@ -172,7 +172,7 @@ def main():
     )
     parser.add_argument(
         "--model_name_or_path",
-        default="/home/matsui/zemi/awesome-align/model_without_co",
+        default="単語アライメントモデルのパス",
         type=str,
         help="The model checkpoint for weights initialization. Leave None if you want to train a model from scratch.",
     )

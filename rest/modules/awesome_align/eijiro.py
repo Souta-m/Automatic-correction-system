@@ -1,10 +1,10 @@
 import re
 import pandas as pd
 from time import time
-#df = open("/home/matsui/DjangoPro/Master/eijiro_weblio.txt",mode="r")
-df_word = open("/home/matsui/DjangoPro/Master/final_eijiro_weblio.txt",mode="r")
+#22行目まで辞典を読み込んでいる
+df_word = open("英和辞典が格納されているパス",mode="r")
 data_word=df_word.readlines()
-df_jyuku = open("/home/matsui/DjangoPro/Master/final_jyukugo.txt",mode="r")
+df_jyuku = open("熟語辞典が格納されているパス",mode="r")
 data_jyuku=df_jyuku.readlines()
 
 jp_word=[]
@@ -21,13 +21,14 @@ for d in data_jyuku:
     en_jyuku.append(d[1].strip())
     jp_jyuku.append(d[0].strip())
 
+#先頭漢字が一致しているかどうかを判定
 def kanji(word1,word2):
     if word1[0]==word2[0] and regex.findall(r'\p{Han}+',word1[0])!=[]:
         return True
     else:
         return False
 
-
+#英語(学習者訳と正解文)中の単語が熟語かどうか判定
 def jyukugo(word):
     lists=[]
     if word in jp_jyuku:
@@ -35,7 +36,7 @@ def jyukugo(word):
         lists=en_jyuku[idx].split("、")
     return lists
 
-
+#英和辞典上に類似した意味があるかどうか検索
 def search(word):
     ans=""
     if word.islower()==False and word.lower() in en_word:

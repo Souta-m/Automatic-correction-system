@@ -19,16 +19,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'w(5tz1s!n5xd4ue0^j*8d9tw=h6rj2a_#ehap__rh3c*h-hkae'
+SECRET_KEY = '自分で作成したシークレットキー' #SECRET_KEYを再生性する必要がある。詳しくは、https://chigusa-web.com/blog/django-secret/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  #公開時はFalse
+DEBUG = True  #公開時はFalse、開発時はTrue
 
 if DEBUG==True:
      ALLOWED_HOSTS = ['*']
 
 if not DEBUG:
-    ALLOWED_HOSTS =["127.0.0.1","133.70.173.54","tsunalab-tensakupro.net","tsunalab.net"]
+    ALLOWED_HOSTS =["127.0.0.1","実行環境のIPアドレス(IPv4)","tsunalab-tensakupro.net","tsunalab.net"] #Webアプリと紐付けるIPアドレスやドメイン
 
 
 # Application definition
@@ -118,15 +118,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+#ログイン機能の定義
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL="index"
 LOGOUT_REDIRECT_URL = "top"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+#静的ファイルの場所
 STATIC_URL = '/static/'
 STATIC_ROOT = '/usr/share/nginx/html/static'
 
+#画像ファイルの場所
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/usr/share/nginx/html/media'
 # STATICFILES_DIRS = [
