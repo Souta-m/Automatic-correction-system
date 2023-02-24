@@ -67,7 +67,7 @@ def kensyutu(src,trg):
     sim = util.pytorch_cos_sim(embeddings[0],embeddings[1]) #最終的なcos類似度の値
     #以上sentence-BERTでの判定
     
-    #最終的な誤り検出アルゴリズム
+    #最終的な誤り検出アルゴリズム、閾値変更もここで
     if (labels1[0]!="contradiction" and labels2[0]!="contradiction"):
         if sim>=0.85:
             return "誤りなし"
